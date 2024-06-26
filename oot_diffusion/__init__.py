@@ -43,6 +43,7 @@ class OOTDiffusionModel:
         steps: int = 10,
         cfg: float = 2.0,
         num_samples: int = 1,
+        category: str = "upperbody"
     ):
         return self.generate_static(
             self.get_pipe(),
@@ -53,7 +54,8 @@ class OOTDiffusionModel:
             seed,
             steps,
             cfg,
-            num_samples,
+            num_samples, 
+            category
         )
 
     @staticmethod
