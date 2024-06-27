@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="ootd_diffusion",
+    name="oot_diffusion",
     version="0.0.1",
     description="A description of your project",
     author="Viktor Frede Andersen",
     author_email="vikfand@gmail.com",
-    url="https://github.com/arun-lal/ootd_diffusion.git",
+    url="https://github.com/viktorfa/oot_diffusion",
     packages=find_packages(include=["oot_diffusion", "oot_diffusion.*"]),
     include_package_data=True,
     install_requires=[
