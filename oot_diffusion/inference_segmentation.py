@@ -62,6 +62,7 @@ class ClothesMaskModel:
             human_parsing_model=self.human_parsing_model,
             pose_model=self.pose_model,
             hg_root=self.hg_root,
+            category=self.category
         )
 
     @staticmethod
@@ -70,11 +71,12 @@ class ClothesMaskModel:
         human_parsing_model: BodyParsingModel,
         pose_model: PoseModel,
         hg_root: str = None,
+        category: str = None
     ):
         if hg_root is None:
             hg_root = DEFAULT_HG_ROOT
 
-        category = self.category
+        category = category
 
         if isinstance(model_path, Image.Image):
             model_image = model_path
