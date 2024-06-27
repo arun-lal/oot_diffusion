@@ -19,7 +19,7 @@ DEFAULT_HG_ROOT = Path(os.getcwd()) / "oodt_models"
 
 
 class ClothesMaskModel:
-    def __init__(self, hg_root: str = None, cache_dir: str = None):
+    def __init__(self, hg_root: str = None, cache_dir: str = None, category: str = "upperbody"):
         """
         Args:
             hg_root (str, optional): Path to the hg root directory. Defaults to CWD.
@@ -30,6 +30,7 @@ class ClothesMaskModel:
         self.hg_root = hg_root
         self.cache_dir = cache_dir
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.category = category
 
         start_model_parse_load = time.perf_counter()
         self.human_parsing_model = BodyParsingModel(
@@ -73,7 +74,7 @@ class ClothesMaskModel:
         if hg_root is None:
             hg_root = DEFAULT_HG_ROOT
 
-        category = "upperbody"
+        category = self.category
 
         if isinstance(model_path, Image.Image):
             model_image = model_path
