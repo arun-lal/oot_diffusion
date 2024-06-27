@@ -56,7 +56,8 @@ class OOTDiffusionModel:
             seed,
             steps,
             cfg,
-            num_samples, 
+            num_samples,
+            self.category
         )
 
     @staticmethod
@@ -69,12 +70,13 @@ class OOTDiffusionModel:
         seed: int = 0,
         steps: int = 10,
         cfg: float = 2.0,
-        num_samples: int = 1
+        num_samples: int = 1,
+        category: str = None
     ):
         if hg_root is None:
             hg_root = DEFAULT_HG_ROOT
 
-        category = self.category
+        category = category
 
         if isinstance(cloth_path, Image.Image):
             cloth_image = cloth_path
