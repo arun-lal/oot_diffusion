@@ -11,7 +11,7 @@ DEFAULT_HG_ROOT = Path(os.getcwd()) / "oodt_models"
 
 
 class OOTDiffusionModel:
-    def __init__(self, hg_root: str = None, cache_dir: str = None, model_type: str = "hd"):
+    def __init__(self, hg_root: str = None, cache_dir: str = None, model_type: str = "hd", category: str = "upperbody"):
         """
         Args:
             hg_root (str, optional): Path to the hg root directory. Defaults to CWD.
@@ -22,6 +22,7 @@ class OOTDiffusionModel:
         self.hg_root = hg_root
         self.cache_dir = cache_dir
         self.model_type = model_type
+        self.category = category
 
     def load_pipe(self):
         self.pipe = OOTDiffusion(
@@ -29,7 +30,7 @@ class OOTDiffusionModel:
             cache_dir=self.cache_dir,
             model_type=self.model_type
         )
-        self.cmm = ClothesMaskModel(hg_root=self.hg_root, cache_dir=self.cache_dir)
+        self.cmm = ClothesMaskModel(hg_root=self.hg_root, cache_dir=self.cache_dir, category=self.category)
         return self.pipe
 
     def get_pipe(self):
@@ -44,8 +45,7 @@ class OOTDiffusionModel:
         seed: int = 0,
         steps: int = 10,
         cfg: float = 2.0,
-        num_samples: int = 1,
-        category: str = "upperbody"
+        num_samples: int = 1
     ):
         return self.generate_static(
             self.get_pipe(),
@@ -57,7 +57,6 @@ class OOTDiffusionModel:
             steps,
             cfg,
             num_samples, 
-            category
         )
 
     @staticmethod
@@ -70,13 +69,12 @@ class OOTDiffusionModel:
         seed: int = 0,
         steps: int = 10,
         cfg: float = 2.0,
-        num_samples: int = 1,
-        category: str = "upperbody"
+        num_samples: int = 1
     ):
         if hg_root is None:
             hg_root = DEFAULT_HG_ROOT
 
-        # category = "upperbody"
+        category = self.category
 
         if isinstance(cloth_path, Image.Image):
             cloth_image = cloth_path
